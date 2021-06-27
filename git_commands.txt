@@ -1,0 +1,11 @@
+git init - initialaize repository
+git ls-files - show all the files in the staging area
+git status
+git status -s     get the status with shortcuts : M modified, ?? untracked
+git log
+git commit -m "message to commit"  - commit the staging area to the repository
+git add filename1  - add file to the staging area
+git rm file1.txt - remove the file from the working directory and the staging area
+git rm --cache filename - remove the file only from the staging area
+git diff --staged  - view the staging area before commit to repository
+git diff - view the changes between files in the working dir to the files in the staging area
