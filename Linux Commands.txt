@@ -1,0 +1,75 @@
+1) wc stands for word count. As the name implies, it is mainly used for counting purpose.
+flags: -l (lines) , -w (words) , -c(count of bytes)
+etc: $ wc state.txt
+ 5  7 63 state.txt   // in state.txt file we have 5 lines,7 words and total 63 characters.
+
+2) tail / head  , will help you view the last/first lines in a file.
+etc : tail -n 15 word-list.txt , will show the last 15 lines in word-list.txt file.
+
+
+3)mount command is used to mount the filesystem found on a device to big tree structure(Linux filesystem) rooted at ‘/‘. Conversely,
+ another command umount can be used to detach these devices from the Tree.
+לסיכום: כאשר אנחנו מכניסים לדוגמא יו אס בי למחשב ורוצים לעבוד איתו כמו בפייל סיסטם נבצע לו מאונט
+
+
+4) sort command
+These are the default rules when using sort. The first few examples will clarify how these priorties are managed. Then we will look at specialized options.
+
+numbers > letters
+lowercase > uppercase
+
+flags: -n (to sort all the word and not only the leading letter)
+	-r (reverse)
+	-R r(random sort)
+
+
+5)killall - with killall command you can kill group of running procceses with the same name/other things.
+
+6) fg command in linux used to put a background job in foreground.
+
+7)pgrep looks through the currently running processes and lists the process IDs which match the selection criteria to stdout. All the criteria have to match. For example,
+etc: $ pgrep -u root sshd
+will only list the processes called sshd AND owned by root.
+
+8) netstat -natup , shows me all the working tcp/udo ports
+flags: n (address and not name)
+	a(all info)
+	t(tcp),u(udp)
+	p(procces id that uses this port)
+127.0.0.1 this pc - loop back address
+0.0.0.0 open to the world
+
+
+9)scp (secure copy) command in Linux system is used to copy file(s) between servers in a secure way. The SCP command or secure copy allows secure transferring of files in between the local host and the remote host or between two remote hosts. It uses the same authentication and security as it is used in the Secure Shell (SSH) protocol. 
+SCP is known for its simplicity, security and pre-installed availability.
+
+10)Use nc command for port scanning - nc -v -n 127.0.0.1 1-100
+
+
+11)passwd command - In order to change the password of the currently logged-on user, just type passwd and hit enter.
+
+12)In order to change Group ownership only, we’d use the following command:
+chgrp [groupname] [filename(s)]
+If we wish to change both user and group ownerships, we’d use:
+chown [username]:[groupname] [filename(s)]
+
+13) suid - it can be assigned to the executable program or script and when those run,
+ by any user,
+ the program would have elevated permissions, similar to a super-user’s permissions.
+
+
+14)Ip forwarding enabled/disabled by  - ‘/proc/sys/net/ipv4/ip_forward’
+
+
+15) 
+search for all files containing the text “This is my first Time”
+find ./ -type f -exec grep -l "text to find" {} \;
+
+From root, search for all files containing the string “error.l” in the file name
+find . -name "error.l*" -print
+
+Run a command in 1 line that will:
+Find all processes run by you as an owner
+Enter their cpu and memory information into the file /exercise/session6.txt
+
+solution: ps -aux -U root | awk '{print $2, $3, $4}' > /root/exercise/session6.txt

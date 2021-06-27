@@ -1,11 +1,26 @@
 git init - initialaize repository
+rm -rf .git / if I want to stop traking this local directory with git
 git ls-files - show all the files in the staging area
 git status
 git status -s     get the status with shortcuts : M modified, ?? untracked
-git log
+git log / gives us the hash code of the commits
 git commit -m "message to commit"  - commit the staging area to the repository
 git add filename1  - add file to the staging area
 git rm file1.txt - remove the file from the working directory and the staging area
 git rm --cache filename - remove the file only from the staging area
 git diff --staged  - view the staging area before commit to repository
 git diff - view the changes between files in the working dir to the files in the staging area
+git add -A  / add all file to the staging area
+git reset / remove all the file from the staging area
+git branch -a // name all the branches of the repository
+git clone <url to of the repo> <the dir to clone it to>
+git pull // pull the changes made by others since the last time we pulled
+$ git  config --global user.email "eranka@checkpoint.com"
+$ git  config --global user.name "eran kamil"
+$ git config --list  / to check the details like email and name
+The gitignore file its a file that we add to it files we want git to ignore
+git push origin master // push to the original repo
+git branch <name of the brach to create>
+git checkout <name of brach> / switch to this branch
+$ git push -u origin test_branch // push branch to remote
+$ git push origin --delete test_branc / delete the brach from the remote repo
