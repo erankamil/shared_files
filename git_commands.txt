@@ -3,24 +3,72 @@ rm -rf .git / if I want to stop traking this local directory with git
 git ls-files - show all the files in the staging area
 git status
 git status -s     get the status with shortcuts : M modified, ?? untracked
+
 git log / gives us the hash code of the commits
+git log --oneline - shows the log in a nice one line view
+
 git commit -m "message to commit"  - commit the staging area to the repository
+git commit -a -m "message" - adding to stage all file and commiting in one git command
 git add filename1  - add file to the staging area
 git rm file1.txt - remove the file from the working directory and the staging area
 git rm --cache filename - remove the file only from the staging area
-git diff --staged  - view the staging area before commit to repository
+git diff --staged  - view the staging area before commit to repository (only staged changes)
 git diff - view the changes between files in the working dir to the files in the staging area
+git diff HEAD -lists all changes in the working directory since your last commit ( staged and unstaged )
+git diff branch1..branch2 
 git add -A  / add all file to the staging area
 git reset / remove all the file from the staging area
+git branch  - shows all the current branches (the branch that we are now working on will be sign with'*')
 git branch -a // name all the branches of the repository
 git clone <url to of the repo> <the dir to clone it to>
 git pull // pull the changes made by others since the last time we pulled
-$ git  config --global user.email "eranka@checkpoint.com"
-$ git  config --global user.name "eran kamil"
-$ git config --list  / to check the details like email and name
+git config --global user.email "eranka@checkpoint.com"
+git config --global user.name "eran kamil"
+git config --list  / to check the details like email and name
 The gitignore file its a file that we add to it files we want git to ignore
-git push origin master // push to the original repo
+
 git branch <name of the brach to create>
+git branch -d <name of brach>  - deleting the branch
+git branch -D <name of brach>  - force deleting the branch
+git branch -m <my_new_name> (to rename you have to be on that branch)
+
 git checkout <name of brach> / switch to this branch
-$ git push -u origin test_branch // push branch to remote
-$ git push origin --delete test_branc / delete the brach from the remote repo
+git checkout <hash number of a commit> - move our HEAD to point on some commit we made - DETACH HEAD! (like going back in time)
+git checkout HEAD~<number> - move our HEAD to point on some commit we made - DETACH HEAD! (like going back in time) , example: git checkout HEAD~1 (point to one commit berfore the HEAD)
+   How to attch the HEAD back ?
+      1) switch back to our branch  - git switch -
+      2) create a new branch from the commit we were back to 
+git checkout HEAD <filename> - discarding the current changes to what HEAD points on (the last commit)
+git restore <filename>  - same result as git checkout HEAD <filename> 
+git restore --source HEAD~<number> <file_name> - to revert <number> commits before HEAD
+
+Unstaging files:
+git restore --staged <file_name>
+
+git reset <commit-hash> - will reset a repo back to the commit been given . but its keep our changes in the working dir (good reason to use: committed to unwanted branch)
+git rest --hard commit-hash> - hard reset , will lost also the changes in the working dir
+
+git revert <commit-hast> - It use to discard changes like reset and checkout but the difference that he make new commit and not deleting the bad commits (must secure option)
+
+git switch <name of brach>  - switching to the branch , this is the newest way to do it . NOT with checkout
+git switch -c <branch-name> - creating and switching to the new branch
+
+git push -u origin test_branch // push branch to remote
+git push origin --delete test_branc / delete the brach from the remote repo
+git push origin master // push to the original repo
+
+HEAD -> branch_name , HEAD is a pointer to a branch. the branch that we are now working on.
+
+Stashing 
+ Git provieds an east way to stashing there uncommitted changes so that we can return to them later! without making unnecessary commits.
+
+git stash - save the uncommitted changes to the stashing area
+git stash pop  - the  uncommitted changes poped from the stash to our current branch
+git stash apply - the  uncommitted changes poped from the stash but stays there and we can apply then in more branches
+git stash list - shows the list of the stashed in the Stack
+git stash frop <stash-id> - drop this stash form the Stack
+
+patch -p1 < patchfile.patch // add the patch to the local module
+
+git -c http.sslVerify=false  clone <url_to_clone_from>
+git -c http.sslVerify=false https://github.com/Colt/yesterday-exercise
