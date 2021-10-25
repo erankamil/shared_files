@@ -30,7 +30,7 @@ The gitignore file its a file that we add to it files we want git to ignore
 git branch <name of the brach to create>
 git branch -d <name of brach>  - deleting the branch
 git branch -D <name of brach>  - force deleting the branch
-git branch -m <my_new_name> (to rename you have to be on that branch)
+git branch -M <my_new_name> (to rename you have to be on that branch)
 
 git checkout <name of brach> / switch to this branch
 git checkout <hash number of a commit> - move our HEAD to point on some commit we made - DETACH HEAD! (like going back in time)
@@ -67,6 +67,17 @@ git stash pop  - the  uncommitted changes poped from the stash to our current br
 git stash apply - the  uncommitted changes poped from the stash but stays there and we can apply then in more branches
 git stash list - shows the list of the stashed in the Stack
 git stash frop <stash-id> - drop this stash form the Stack
+
+=========================
+Working with GITHUB
+=========================
+
+1) method 1 is that we have source code locally and we want to store it in github
+	1. Make new repo in github
+	2. git remote add origin <url_from_github_repo> // origin can be other name we want
+	3. git branch -M main // rename the mater to be main , not must
+	3. git push <remote> <branch> // remote is origin useally . for exmaple: push origin main
+
 
 patch -p1 < patchfile.patch // add the patch to the local module
 
