@@ -53,9 +53,10 @@ git revert <commit-hast> - It use to discard changes like reset and checkout but
 git switch <name of brach>  - switching to the branch , this is the newest way to do it . NOT with checkout
 git switch -c <branch-name> - creating and switching to the new branch
 
-git push -u origin test_branch // push branch to remote
+git push origin branch_name // push branch to remote with the same name of branch , if not exist create one on the remote side
 git push origin --delete test_branc / delete the brach from the remote repo
-git push origin master // push to the original repo
+git push origin master // push master branch to the remote repo
+git push origin local_branch_name:remote_branch_name  // if we want to push x to y and not x to x like by default
 
 HEAD -> branch_name , HEAD is a pointer to a branch. the branch that we are now working on.
 
@@ -76,8 +77,11 @@ Working with GITHUB
 	1. Make new repo in github
 	2. git remote add origin <url_from_github_repo> // origin can be other name we want
 	3. git branch -M main // rename the mater to be main , not must
-	3. git push <remote> <branch> // remote is origin useally . for exmaple: push origin main
+	3. git push <remote> <branch_name> // remote is origin useally . for exmaple: push origin main
 
+2) Start from scracth:
+	1. Create brand new repo in github
+	2. clone it down to your machine , git clone <url>
 
 patch -p1 < patchfile.patch // add the patch to the local module
 
