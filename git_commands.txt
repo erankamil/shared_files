@@ -31,7 +31,7 @@ git branch <name of the brach to create>
 git branch -d <name of brach>  - deleting the branch
 git branch -D <name of brach>  - force deleting the branch
 git branch -M <my_new_name> (to rename you have to be on that branch)
-
+git branch -r  ( list of all the remote branches , in clone we by default cloning the main branch but we can switch to athor remote branch with git switch)
 git checkout <name of brach> / switch to this branch
 git checkout <hash number of a commit> - move our HEAD to point on some commit we made - DETACH HEAD! (like going back in time)
 git checkout HEAD~<number> - move our HEAD to point on some commit we made - DETACH HEAD! (like going back in time) , example: git checkout HEAD~1 (point to one commit berfore the HEAD)
@@ -69,6 +69,11 @@ git stash apply - the  uncommitted changes poped from the stash but stays there 
 git stash list - shows the list of the stashed in the Stack
 git stash frop <stash-id> - drop this stash form the Stack
 
+Rebasing
+ Two main ways to use git rebase command:
+ 1) as an alternative to merging
+ 2) as a cleanup tool
+
 =========================
 Working with GITHUB
 =========================
@@ -82,6 +87,9 @@ Working with GITHUB
 2) Start from scracth:
 	1. Create brand new repo in github
 	2. clone it down to your machine , git clone <url>
+
+git fetch <remote> - get all new changes in the remote repository and get access to them but thet are not NOT getting into our working dir  
+git pull <remote_name> <branch_name>  (a shorter version is : git pull )- similiar to git fetch , it is update also our working directory with the lated changes. PULL == FETCH + MERGE
 
 patch -p1 < patchfile.patch // add the patch to the local module
 
