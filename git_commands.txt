@@ -95,3 +95,5 @@ patch -p1 < patchfile.patch // add the patch to the local module
 
 git -c http.sslVerify=false  clone <url_to_clone_from>
 git -c http.sslVerify=false https://github.com/Colt/yesterday-exercise
+
+git config --global http.sslCAInfo C:/Users/eranka/Desktop/ca-bundle.crt
