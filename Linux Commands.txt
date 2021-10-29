@@ -102,3 +102,6 @@ id command - shows the user-id , group-id
 
 chroot("some dir") - changing the root dir to the given dir , it can call only by root.
 setgid(99), setuid(99) - dropping privileges to NOBODY
+
+
+// test
