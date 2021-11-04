@@ -1,0 +1,85 @@
+===================================
+	nmap Course
+===================================
+Nmap it is a tool for network scanning, it is actually interacts with the the destenations.
+nmap -h  , get help for nmap commands
+nmap <address> - a simple default scan. 1,000 top ports.
+as running with PRIVILAGED USER , The scan is SYN Stealth , more secure and fasr
+as running with UNPRIVILAGED USER, The scan is TCP Connect which is full connect to destenation scan. slower, can be detected.
+(Remember: TCP 3 way handshake: SYN , SYN+ACK , ACK)
+
++++++++++++++++++++++++++
+TARGET SPECIFICATION
++++++++++++++++++++++++++
+for example: nmap -sS 192.168.1.1-35 (scan 35 endpoints)
+-iL <file_name> run on a given list of destenations , nmap -iL  <file_name>
+-iR <num_hosts> , choses random targets to scan. nmap -iR 3 -vv 
+
+
++++++++++++++++++++++++++
+PORT STATES
++++++++++++++++++++++++++
+possible states:
+OPEN - application is open, accepting connection
+CLOSE - accesible , but there is no app listen on it. can be helpul to check that the host is UP and active
+FILTERED - can not say nothing about the port because of firewall
+UNFILTERED - the port is accesible but cannot tell if its open or close
+
++++++++++++++++++++++++++
+HOST DISCOVERY OPTIONS
++++++++++++++++++++++++++
+
+if NO host discovery option is given ,nmap sends an:
+1) ICMP echo request (ping)
+2) TCP SYN packet to port 443
+3) TCP ACK packet to port 80
+4) ICMP timestamp request
+Exception : in local lan scan . uses ARP scan.
+
+-> if there is a response back fron one of this options, nmap will start a port scan.
+
+-sL  , no scan at all , just a reverse DNS resulotion. dns lookup on the ip addreses given.
+-sn  ,ping scan (not do port scan after the discovery part), we just want to know if which hosts are up.
+-Pn  ,skips the nmap host discovery part, so the nmap will scan the given targets not matter what.
+-PS  ,discovey host (SYN SCAN) enable but with specifed ports . for example: nmap 192.168.1.1-5 -PS22-25,80,113,1050,3500 -v
+-PA  ,ACK SCAN  with specifed ports.
+-PR  , arp scan only. the fastest way to do a scan on the lock newtork. example: nmap 192.168.1.1/24 -PR -sn -vv
+
++++++++++++++++++++++++++
+SCAN TECHNIQUES
++++++++++++++++++++++++++
+Only one method of scan can be used in on command
+
+-sS  SYN scan , -sT  connect() scan (default when syn is unavailable), -sA ACK scan use to map firewalls rules, -sW, -sM   -> they are TCP scans
+
+-sU UDP scan, slower than tcp scan. 
+we can add -sV in order to get the applications behind the ports.
+
+SYN scan is the most polular scan and set by default 
+
+
++++++++++++++++++++++++++
+PORT SPECIFICATION
++++++++++++++++++++++++++
+
+-p <range or port number>. for example: nmap 192.168.1.34 -v -p 21-1000
+
+-p U:......,T:........ (To specify upd,tcp ports)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

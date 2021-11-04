@@ -1,0 +1,8 @@
+layout next - dispaly the program
+run - run the program or restart the program
+next - go to the next line
+step - step into the function
+print var - print the value of the var
+watch var - notify  every time the var value is changed
+brerak <func_name> - create break point when enter this function
+example of print 10 element in int* array:print *arr@10
