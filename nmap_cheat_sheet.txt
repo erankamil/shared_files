@@ -8,6 +8,10 @@ as running with PRIVILAGED USER , The scan is SYN Stealth , more secure and fasr
 as running with UNPRIVILAGED USER, The scan is TCP Connect which is full connect to destenation scan. slower, can be detected.
 (Remember: TCP 3 way handshake: SYN , SYN+ACK , ACK)
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SITE WE CAN SCAN : scanme.nmap.org
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 +++++++++++++++++++++++++
 TARGET SPECIFICATION
 +++++++++++++++++++++++++
@@ -64,18 +68,48 @@ PORT SPECIFICATION
 
 -p <range or port number>. for example: nmap 192.168.1.34 -v -p 21-1000
 
--p U:......,T:........ (To specify upd,tcp ports)
+-p U:......,T:........ (To specify upd,tcp ports) when using U:... we have to add the -sU scan
+
+-p- , scan all ports
+
+--top-ports <number>
+
+--exlclude-ports <ports to exclude>
+
++++++++++++++++++++++++++++++
+SERVICE AND VERSION DETECTION
++++++++++++++++++++++++++++++
+
+-sV , to determine which service and version is behind this port
 
 
++++++++++++++++++++++++++++++
+OS DETECTION
++++++++++++++++++++++++++++++
 
+nmap 192.168.1.1 -O
 
+nmap 192.168.1.1-40 -O -Pn --osscan-limit  , os detection is affective if at least 1 tcp/udp port is open. use --osscan-limit will tell nmap to skip hosts that do not meet this.
 
++++++++++++++++++++++++++++++
+NMAP SCRIPTING ENGINE (NSE)
++++++++++++++++++++++++++++++
 
+-sC  , tell nmap to run the defualt scripts
 
+locat *.nse , we will see a lot nse scripts. LUA language 
 
+we can find a lot of scripts on: https://nmap.org/nsedoc/scripts/
 
+4 type of scripts:
+prerule() , run once before any host scanned
+hostrule(host) and portrule(host,port) , run after each host found is scanned
+postrule() , run once after the scan part
 
+Useful scripts:
+nmap 192.168.1.43 --script default,safe -v -O -sV  - we chose the default and safe scripts catagories
 
+to specipy a script run: nmap -v --script="<script_name>" 192.168.1.1
 
 
 

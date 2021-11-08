@@ -1,3 +1,7 @@
+instal in linux debian : sudo apt install gdb
+to complie with gdb flag - gcc -g prog.c -o prog.out
+how to gdb with args of the exe? gdb --args exe_name arg1 arg2 ....  
+
 layout next - dispaly the program
 run - run the program or restart the program
 next - go to the next line
@@ -6,7 +10,9 @@ print var - print the value of the var
 watch var - notify  every time the var value is changed
 brerak <func_name> - create break point when enter this function
 example of print 10 element in int* array:print *arr@10
+list - to show ythe part of the code you are now
 
 extract core dump file gz -d <core_dump.tgz>
 open core file with gdb : gdb <executable_name> <core_file> 
 bt - back trace of the stack until the semgentation fautl occurs.
+
